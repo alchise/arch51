@@ -136,7 +136,20 @@ mkdir -p /mnt/boot/efi
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "mount /dev/sda1 /mnt/boot/efi"
 mount /dev/sda1 /mnt/boot/efi
-
+echo
+echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Instalar Archlinux y paquetes necesarios...$(tput sgr0)"
+echo
+pacman -Syy
+pacstrap /mnt base base-devel linux linux-firmware efibootmgr os-prober ntfs-3g networkmanager network-manager-applet pavucontrol grub dosfstools mtools gvfs gvfs-afc gvfs-mtp xdg-user-dirs nano vim dhcpcd xterm --verbose
+echo
+echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Generar fstab...$(tput sgr0)"
+echo
+genfstab -U /mnt » /mnt/etc/fstab 
+cat /mnt/etc/fstab
+echo
+echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Entrar al sistema base...$(tput sgr0)"
+echo
+arch-chroot /mnt
 	
 
 
