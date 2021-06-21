@@ -11,12 +11,18 @@ echo
 echo -n "$(tput setaf 6)$(tput bold)Pulse para continuar...$(tput sgr0)"
 read p
 echo
-echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Verificando modo UEFI presente...$(tput sgr0)"	
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Verificando la arquitectura del procesador...$(tput sgr0)"
+echo
+echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
+echo -n "Arquitectura: "$(tput bold)
+uname -m	
+echo
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Verificando modo UEFI presente...$(tput sgr0)"	
 echo
 if [ -d /sys/firmware/efi/efivars ];
 then
 	echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)"	
-	echo "El directorio '/sys/firmware/efi/efivars' ¡EXISTE!"
+	echo "El directorio '/sys/firmware/efi/efivars' $(tput bold)¡EXISTE!"
 else
 	echo -n "$(tput setaf 10)$(tput bold)[Error] $(tput sgr0)"	
 	echo "La directorio '/sys/firmware/efi/efivars' ¡NO EXISTE!"
@@ -28,21 +34,21 @@ path=$(ls -A '/sys/firmware/efi/efivars')
 if [[ ! -z "$path" ]]; 
 then 
 	echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)"	
-	echo "El directorio '/sys/firmware/efi/efivars'¡NO ESTA VACIO, UEFI PRESENTE!" 
+	echo "El directorio '/sys/firmware/efi/efivars'$(tput bold)¡NO ESTA VACIO, UEFI PRESENTE!" 
 else 
 	echo -n "$(tput setaf 10)$(tput bold)[Error] $(tput sgr0)"	
-	echo "El directorio '/sys/firmware/efi/efivars' ¡ESTA VACIO, UEFI NO PRESENTE!"
+	echo "El directorio '/sys/firmware/efi/efivars' $(tput bold)¡ESTA VACIO, UEFI NO PRESENTE!"
 	echo -n "$(tput setaf 6)$(tput bold)Pulse para salir...$(tput sgr0)"
 	read p	
 	exit
 fi
 echo
 opcteclado=0 
-echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Distribucion de teclado temporal...$(tput sgr0)"	
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Distribucion de teclado temporal...      $(tput sgr0)"	
 echo "-----------------------------------------"
-echo "1. Español - España - 'es'        - ()=?¿"
-echo "2. Español - Latino - 'la-latin1' - ()=?¡"
-echo "3. Inglés  - EEUU   - 'us'        - ()-+" 
+echo "1. Español - España - es"
+echo "2. Español - Latino - la-latin1"
+echo "3. Inglés  - EEUU   - us" 
 echo "-----------------------------------------"
 echo
 while [[ $opcteclado < 1 ]] || [[ $opcteclado > 3 ]]; do
@@ -60,6 +66,7 @@ case $opcteclado in
 	3) echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)"
 	   echo "Ha seleccionado la distribución de teclado temporal 'us'" 
 	   loadkeys us ;;
+	*)  
 esac
 echo
 echo -n "$(tput setaf 6)$(tput bold)Pulse para continuar...$(tput sgr0)"
@@ -96,7 +103,7 @@ echo
 # 	cfdisk /dev/sda
 # 		/boot /dev/sda1
 # 		swap  /dev/sda2
-# 		/ 	/dev/sda3
+# 		/     /dev/sda3
 # Verificar Particiones:
 # 	fdisk -l
 # >>PROCESO POR AUTOMATIZAR<<
