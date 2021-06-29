@@ -2,7 +2,7 @@
 
 opcion=0
 txtmenu="$(tput setaf 6)$(tput bold)Pulse para regresar al menú...$(tput sgr0)"
-while [ $opcion -ne 6 ]; do
+while [ $opcion -ne 7 ]; do
 	clear
         echo "$(tput setaf 6)$(tput bold)"
         echo "-------------------------------------------------------"
@@ -14,43 +14,43 @@ while [ $opcion -ne 6 ]; do
 	echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Identicar discos y particiones...$(tput sgr0)"
 	echo -n "$(tput setaf 6)$(tput bold)"
 	echo "-------------------------------------------------------"
-	echo "1. Info de espacio en discos"
-	echo "2. Info de discos y particiones."
-	echo "3. Info de dispositivos de bloque"
-	echo "4. Info de marcas y modelos de discos"
-	echo "5. Info de volumenes físicos y lógicos"
-	echo "6. Salir"
+	echo "1. Información de espacio en discos"
+	echo "2. Información de discos y particiones."
+	echo "3. Información de dispositivos de bloque"
+	echo "4. Información de marcas y modelos de discos"
+	echo "5. Información de volumenes físicos y lógicos"
+	echo "6. Salir del menu y seguir con la instalación"
 	echo "-------------------------------------------------------"
 	echo -n "Seleccione una opción: " ; read opcion
 	echo
 	case $opcion in
-		1) df -h ;
-		echo ;
-		echo -n $txtmenu ;
+		1) 	df -h ;
+			echo ;
+			echo -n $txtmenu ;
+			read p ;
+			clear ;;
+		2) 	fdisk -l ;
+			echo ;
+			echo -n $txtmenu ;
+			read p ;
+			clear ;;
+		3) 	lsblk -l;
+			echo ;
+        	echo -n $txtmenu ;
         	read p ;
-		clear ;;
-		2) fdisk -l ;
-		echo ;
-                echo -n $txtmenu ;
-		read p ;
-		clear ;;
-		3) lsblk -l ;
-		echo ;
-                echo -n $txtmenu ;
-                read p ;
-		clear ;;
-		4) parted -l ;
-		echo ;
-                echo -n $txtmenu ;
-                read p ;
-		clear ;;
-		5) sfdisk -l ;
-		echo ;
-                echo -n $txtmenu ;
-                read p ;
-		clear ;;
-		6) opcion=6 ;;
-		*) echo "!Opcion no valida!" ; opcion=0 ; clear ;;	
+			clear ;;
+		4) 	parted -l;
+			echo ;
+            echo -n $txtmenu ;
+            read p ;
+			clear ;;
+		5) 	sfdisk -l ;
+			echo ;
+            echo -n $txtmenu ;
+            read p ;
+			clear ;;
+		6) 	opcion=7 ;;
+		*) 	echo "!Opcion no valida!" ; opcion=0 ; clear ;;	
 	esac
 done
 echo
@@ -118,7 +118,7 @@ echo
 echo -n "$(tput setaf 6)$(tput bold)Pulse para continuar...$(tput sgr0)"
 read p
 echo
-echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Verificando conexión a internet...$(tput sgr0)"
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Verificando conexión a internet...$(tput sgr0)"
 echo 
 opcinternet="s"
 while [[ "$opcinternet" == "s" ]] || [[ "$opcinternet" == "S" ]]; do
@@ -129,11 +129,11 @@ while [[ "$opcinternet" == "s" ]] || [[ "$opcinternet" == "S" ]]; do
 	echo
 done
 echo
-echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Actualizando el reloj del sistema...$(tput sgr0)"
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Actualizando el reloj del sistema...$(tput sgr0)"
 echo
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "timedatectl set-ntp true"
-timedatectl set-ntp true
+#timedatectl set-ntp true
 echo
 
 # >>PROCESO POR AUTOMATIZAR<<
@@ -154,55 +154,63 @@ echo
 # 	fdisk -l
 # >>PROCESO POR AUTOMATIZAR<<
 
-echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Formateando Particiones...$(tput sgr0)"
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Formateando Particiones...$(tput sgr0)"
 echo
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "mkfs.vfat -F32 /dev/sda1"
-mkfs.vfat -F32 /dev/sda1
+#mkfs.vfat -F32 /dev/sda1
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "mkswap /dev/sda2"
-mkswap /dev/sda2 
+#mkswap /dev/sda2 
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "swapon /dev/sda2"
-swapon /dev/sda2
+#swapon /dev/sda2
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "mkfs.ext4 /dev/sda3"
-mkfs.ext4 /dev/sda3
+#mkfs.ext4 /dev/sda3
 echo
-echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Verificando activación de swap...$(tput sgr0)"
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Verificando activación de swap...$(tput sgr0)"
 echo
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "free"
 free
 echo
-echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Montando Particiones...$(tput sgr0)"
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Montando Particiones...$(tput sgr0)"
 echo
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "mount /dev/sda3 /mnt"
-mount /dev/sda3 /mnt
+#mount /dev/sda3 /mnt
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "ls /mnt"
-ls /mnt 
+#ls /mnt 
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "mkdir -p /mnt/boot/efi"
-mkdir -p /mnt/boot/efi
+#mkdir -p /mnt/boot/efi
 echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
 echo "mount /dev/sda1 /mnt/boot/efi"
-mount /dev/sda1 /mnt/boot/efi
+#mount /dev/sda1 /mnt/boot/efi
 echo
-echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Instalar Archlinux y paquetes necesarios...$(tput sgr0)"
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Instalar Archlinux y paquetes necesarios...$(tput sgr0)"
 echo
-pacman -Syy
-pacstrap /mnt base base-devel linux linux-firmware efibootmgr os-prober ntfs-3g networkmanager network-manager-applet pavucontrol grub dosfstools mtools gvfs gvfs-afc gvfs-mtp xdg-user-dirs nano vim dhcpcd xterm --verbose
+#pacman -Syy
+#pacstrap /mnt base base-devel linux linux-firmware efibootmgr os-prober ntfs-3g networkmanager network-manager-applet pavucontrol grub dosfstools mtools gvfs gvfs-afc gvfs-mtp xdg-user-dirs nano vim dhcpcd xterm --verbose
+echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
+echo "Sstema base y paquetes necesarios instalados con exito"
 echo
-echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Generar fstab...$(tput sgr0)"
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Generar fstab...$(tput sgr0)"
 echo
-genfstab -U /mnt » /mnt/etc/fstab 
-cat /mnt/etc/fstab
+#genfstab -U /mnt » /mnt/etc/fstab 
+#cat /mnt/etc/fstab
+echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
+echo "'/mnt/etc/fstab' generado con exito"
 echo
-echo "$(tput setaf 0)$(tput setab 7)$(tput bold)Entrar al sistema base...$(tput sgr0)"
+echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Entrar al sistema base...$(tput sgr0)"
 echo
-arch-chroot /mnt
+#arch-chroot /mnt
+echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)" 
+echo "Ingreso al sistema base con exito"
+echo
+
 	
 
 
