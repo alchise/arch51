@@ -1,30 +1,60 @@
 #!/bin/bash
-clear
+# Particionado automatico estandar /boot/efi /swap /raiz
+# INICIO - SELECCIONAR DISCO DONDE SE VA INSTALAR ARCHLINUX
 opcion=0
-while [ $opcion -ne 6 ]; do
-	echo "--------------------------------------------------"
-	echo "       IDENTIFICAR DISCOS Y PARTICIONES"
-	echo "               Por: Alchise 2021"
-	echo "--------------------------------------------------"
-	echo "1. Info de espacio en discos"
-	echo "2. Info de discos y particiones."
-	echo "3. Info de dispositivos de bloque"
-	echo "4. Info de marcas y modelos de discos"
-	echo "5. Info de volumenes físicos y lógicos"
-	echo "6. Salir"
-	echo "--------------------------------------------------"
-	echo -n "Seleccione una opción: " ; read opcion
+while [ $opcion -ne 5 ]; do
+	clear
 	echo
+	echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Seleccione la unidad donde desea instalar Archlinux...$(tput sgr0)"
+	echo
+	lsblk
+	echo "-------------------------------------------------------"
+	echo "1. /dev/sda"
+	echo "2. /dev/sdb"
+	echo "3. /dev/sdc"
+	echo "4. /dev/sdd"
+	echo "-------------------------------------------------------"
+	echo -n "Seleccione la unidad donde desea instalar Archlinux: " ; read opcion
+	echo
+	udd="sdx"
 	case $opcion in
-		1) echo "1. Info de espacio en discos"; df -h ;;
-		2) fdisk -l ;;
-		3) lsblk -l ;;
-		4) parted -l ;;
-		5) sfdisk -l ;;
-		6) echo "¡Adios!" ; opcion=6 ;;
-		*) echo "!Opcion no valida!" ; opcion=0 ;;	
+		1) udd="/dev/sda";;
+		2) udd="/dev/sdb" ;;	
+		3) udd="/dev/sdc" ;;	
+		4) udd="/dev/sdd" ;;	
+		*) echo -n "!Seleccione una opción válida!" ; read p ; opcion=0 ;;
 	esac
-	echo
-	echo -n "Pulse para continuar..." ; read p
-	echo
+	if [ $opcion != 0 ];
+	then
+		echo -n "¿Está seguro de utilizar la unidad '"; echo -n $udd; echo -n "' para la instalación? (s/n): " 
+		read sino
+		if [ "$sino" == "s" ] || [ "$sino" == "S" ];
+		then 
+			echo
+			echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)"
+			echo -n "¡Ha confirmado la unidad '"; echo -n $udd ; echo "'!"
+			opcion=5
+			echo
+		else
+			if [ "$sino" == "n" ] || [ "$sino" == "N" ];
+			then 
+				echo
+				echo -n "¡No Ha confirmado una unidad!..."
+				read p
+				opcion=0
+				echo
+			else
+				echo
+				echo -n "!Digite una opcion correcta!..."
+				read p
+				opcion=0
+				echo
+			fi
+		fi
+	else
+		echo
+	fi
 done
+echo -n "Pulse para continuar..."
+read p
+# FIN - SELECCIONAR DISCO DONDE SE VA INSTALAR ARCHLINUX

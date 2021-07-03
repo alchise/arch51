@@ -1,61 +1,17 @@
 #!/bin/bash
-
-opcion=0
+opcion1=0
 txtmenu="$(tput setaf 6)$(tput bold)Pulse para regresar al menú...$(tput sgr0)"
-while [ $opcion -ne 7 ]; do
-	clear
-        echo "$(tput setaf 6)$(tput bold)"
-        echo "-------------------------------------------------------"
-        echo "        Instalador de Archlinux arch51 - UEFI"    
-        echo "                  Por: Alchise 2021"
-        echo "-------------------------------------------------------"
-        echo "$(tput setaf 7)$(tput setab 1)$(tput bold)  EL DISCO DEBE TENER TABLA GPT Y UBICADO EN /DEV/SDA  $(tput sgr0)"
-	echo "-------------------------------------------------------"
-	echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Identicar discos y particiones...$(tput sgr0)"
-	echo -n "$(tput setaf 6)$(tput bold)"
-	echo "-------------------------------------------------------"
-	echo "1. Información de espacio en discos"
-	echo "2. Información de discos y particiones."
-	echo "3. Información de dispositivos de bloque"
-	echo "4. Información de marcas y modelos de discos"
-	echo "5. Información de volumenes físicos y lógicos"
-	echo "6. Salir del menu y seguir con la instalación"
-	echo "-------------------------------------------------------"
-	echo -n "Seleccione una opción: " ; read opcion
-	echo
-	case $opcion in
-		1) 	df -h ;
-			echo ;
-			echo -n $txtmenu ;
-			read p ;
-			clear ;;
-		2) 	fdisk -l ;
-			echo ;
-			echo -n $txtmenu ;
-			read p ;
-			clear ;;
-		3) 	lsblk -l;
-			echo ;
-        	echo -n $txtmenu ;
-        	read p ;
-			clear ;;
-		4) 	parted -l;
-			echo ;
-            echo -n $txtmenu ;
-            read p ;
-			clear ;;
-		5) 	sfdisk -l ;
-			echo ;
-            echo -n $txtmenu ;
-            read p ;
-			clear ;;
-		6) 	opcion=7 ;;
-		*) 	echo "!Opcion no valida!" ; opcion=0 ; clear ;;	
-	esac
-done
+echo "$(tput setaf 6)$(tput bold)"
+echo "-------------------------------------------------------"
+echo "        Instalador de Archlinux arch51 - UEFI"    
+echo "                  Por: Alchise 2021"
+echo "-------------------------------------------------------"
+echo "$(tput setaf 7)$(tput setab 1)$(tput bold)  EL DISCO DEBE TENER TABLA GPT Y UBICADO EN /DEV/SDA  $(tput sgr0)"
 echo
 echo -n "$(tput setaf 6)$(tput bold)Pulse para continuar...$(tput sgr0)"
 read p
+
+
 echo
 echo "$(tput setaf 7)$(tput setab 4)$(tput bold)Verificando la arquitectura del procesador...$(tput sgr0)"
 echo
