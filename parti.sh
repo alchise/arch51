@@ -22,30 +22,30 @@ while [ $opcion -ne 5 ]; do
 		2) udd="/dev/sdb" ;;	
 		3) udd="/dev/sdc" ;;	
 		4) udd="/dev/sdd" ;;	
-		*) echo -n "¡Seleccione una opción válida!" ; read p ; opcion=0 ;;
+		*) echo -n "¡Seleccione una opción válida!...[ ENTER ]" ; read p ; opcion=0 ;;
 	esac
 	if [ $opcion != 0 ];
 	then
-		echo -n "¿Está seguro de utilizar la unidad '"; echo -n $udd; echo -n "' para la instalación? (s/n): " 
+		echo -n "¿Está seguro de utilizar la unidad '"; echo -n $udd; echo -n "' para la instalación?...[ s/n ]: " 
 		read sino
 		if [ "$sino" == "s" ] || [ "$sino" == "S" ];
 		then 
 			echo
 			echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)"
-			echo -n "¡Ha confirmado la unidad '"; echo -n $udd ; echo "'!"
+			echo -n "¡Ha confirmado la unidad '"; echo -n $udd ; echo "'!...[ ENTER ]"
 			opcion=5
 			echo
 		else
 			if [ "$sino" == "n" ] || [ "$sino" == "N" ];
 			then 
 				echo
-				echo -n "¡No Ha confirmado una unidad!..."
+				echo -n "¡No Ha confirmado una unidad!...[ ENTER ]"
 				read p
 				opcion=0
 				echo
 			else
 				echo
-				echo -n "¡Digite una opcion correcta!..."
+				echo -n "¡Digite una opcion correcta!...[ ENTER ]"
 				read p
 				opcion=0
 				echo
@@ -55,6 +55,6 @@ while [ $opcion -ne 5 ]; do
 		echo
 	fi
 done
-echo -n "Pulse para continuar..."
+echo -n "Pulse ENTER para continuar..."
 read p
 # FIN - SELECCIONAR DISCO DONDE SE VA INSTALAR ARCHLINUX
