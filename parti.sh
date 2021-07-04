@@ -22,7 +22,7 @@ while [ $opcion -ne 5 ]; do
 		2) udd="/dev/sdb" ;;	
 		3) udd="/dev/sdc" ;;	
 		4) udd="/dev/sdd" ;;	
-		*) echo -n "!Seleccione una opción válida!" ; read p ; opcion=0 ;;
+		*) echo -n "¡Seleccione una opción válida!" ; read p ; opcion=0 ;;
 	esac
 	if [ $opcion != 0 ];
 	then
@@ -45,7 +45,7 @@ while [ $opcion -ne 5 ]; do
 				echo
 			else
 				echo
-				echo -n "!Digite una opcion correcta!..."
+				echo -n "¡Digite una opcion correcta!..."
 				read p
 				opcion=0
 				echo
