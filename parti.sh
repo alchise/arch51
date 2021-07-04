@@ -26,13 +26,13 @@ while [ $opcion -ne 5 ]; do
 	esac
 	if [ $opcion != 0 ];
 	then
-		echo -n "¿Está seguro de utilizar la unidad '"; echo -n $udd; echo -n "' para la instalación?...[ s/n ]: " 
+		echo -n "¿Está seguro de utilizar la unidad '"; echo -n $udd; echo -n "' para la instalación?...[s/n]: " 
 		read sino
 		if [ "$sino" == "s" ] || [ "$sino" == "S" ];
 		then 
 			echo
 			echo -n "$(tput setaf 10)$(tput bold)[ok] $(tput sgr0)"
-			echo -n "¡Ha confirmado la unidad '"; echo -n $udd ; echo "'!...[ ENTER ]"
+			echo -n "¡Ha confirmado la unidad '"; echo -n $udd ; echo "'!"
 			opcion=5
 			echo
 		else
