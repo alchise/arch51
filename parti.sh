@@ -57,5 +57,5 @@ while [ $opcion -ne 5 ]; do
 done
 echo -n "Pulse ENTER para continuar..."
 read p
-fdisk udd
+cfdisk udd
 # FIN - SELECCIONAR DISCO DONDE SE VA INSTALAR ARCHLINUX
