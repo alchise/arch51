@@ -45,6 +45,7 @@ else
 fi
 
 # 3. Configurando la distribución de teclado temporal...
+clear
 HEIGHT=30
 WIDTH=50
 CHOICE_HEIGHT=10
