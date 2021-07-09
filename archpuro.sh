@@ -1,27 +1,87 @@
 #!/bin/bash
 #-------------------------Contenido-------------------------------
     # 1. Bienvenida
-    # 2. Comenzando la instalación
-    # 3. Configurar distribución de teclado temporal
-    # 4. Crear particiones de nuestro disco
-    # 5. Dar formato a las particiones creadas
-    # 6. Montado de particiones
-    # 7. Conexión a internet
-    # 8. Instalación del sistema base
-    # 9. Entrar al sistema base
-    # 10. Configuración del sistema base
-    # 11. Desmontado de particiones y reinicio de sistema
-    # 12. Configuraciones del sistema - ¿Users y Root?
-    # 13. Instalación de complementos gráficos base
-    # 14. Instalación de entornos de escritorios (D.E.)
-    # 15. Instalación de Gestores de inicio de sesión (D.M.)
-	# 16. Reinicio
+    # 2. Verificar arquitectura del procesador
+    # 3. Verificar modo UEFI presente...
+    # 4. Configurar distribución de teclado temporal
+    # 5. Crear particiones de nuestro disco
+    # 6. Dar formato a las particiones creadas
+    # 7. Montado de particiones
+    # 8. Conexión a internet
+    # 9. Instalación del sistema base
+    # 10. Entrar al sistema base
+    # 11. Configuración del sistema base
+    # 12. Desmontado de particiones y reinicio de sistema
+    # 13. Configuraciones del sistema - ¿Users y Root?
+    # 14. Instalación de complementos gráficos base
+    # 15. Instalación de entornos de escritorios (D.E.)
+    # 16. Instalación de Gestores de inicio de sesión (D.M.)
+	# 17. Reinicio
 #---------------------------------------------------------------------
-# 1. Bienvenida
-dialog 	--title "Instalador de Archlinux Puro" \
-    	--backtitle "Bienvenidos al instalador de Archlinux Puro - Por Alchise 2021" \
+# 1. Bienvenida...
+clear
+result=$(echo "\nGracias por usar el instalador archpuro.\n\nTe ofrezco un método por script para que instales paso a paso tu distro favorita totalmente limpia.")
+dialog 	--title "Archlinux limpio y Puro" \
+    	--backtitle "1. Bienvenido al instalador de Archpuro - Por Alchise 2021" \
     	--no-collapse \
-    	--msgbox "$result" 0 0
+        --msgbox "$result" 0 0
+          
+# 2. Verificar arquitectura del procesador...
+clear
+result=$(uname -m)
+if [ "$result" = "x86_64" ];
+then
+        dialog 	--title "La arquitectura de tu procesador ES LA CORRECTA para el instalador:" \
+    	--backtitle "2. Verificando la arquitectura del procesador..." \
+    	--no-collapse \
+    	--msgbox "\n$result" 0 0
+else
+        dialog 	--title "La arquitectura de tu procesador NO ES LA CORRECTA para el instalador:" \
+    	--backtitle "2. Verificando la arquitectura del procesador..." \
+    	--no-collapse \
+    	--msgbox "\n$result" 0 0
+        exit
+fi
+
+# 3. Configurando la distribución de teclado temporal...
+HEIGHT=30
+WIDTH=50
+CHOICE_HEIGHT=10
+BACKTITLE="Backtitle here"
+TITLE="Title here"
+MENU="Choose one of the following options:"
+
+OPTIONS=(1 "es     - español - españa"
+         2 "latam  - español - latino"
+         3 "us     - inglés  - ????"
+         4 "us     - inglés  - acentos")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            echo "You chose Option 1"
+            ;;
+        2)
+            echo "You chose Option 2"
+            ;;
+        3)
+            echo "You chose Option 3"
+            ;;
+esac
+
+# dialog --checklist "Escoge las opciones que desees:" 0 0 0  1 "queso" on 2 "Mostaza" on  3 "anchoas" off
+# dialog --infobox "Espera 4 segundos" 0 0 ; sleep 4
+# dialog --title "nombre" --inputbox "Pon tu nombre:" 0 0
+# dialog --menu "La mejor tortilla es:" 0 0 0 1 "con cebolla" 2 "sin cebolla" 3 "con piminetos" 
+# dialog --radiolist "Escoge tu tortilla favorita:" 0 0 0 1 "Con cebolla" off  2 "Sin cebolla" on 3 "De pimientos" off 4 "De esparragos" off
 
 # opcion1=0
 # txtmenu="$(tput setaf 6)$(tput bold)Pulse para regresar al menú...$(tput sgr0)"

@@ -1,6 +1,8 @@
 #!/bin/bash
 # Particionado automatico estandar /boot/efi /swap /raiz
 # INICIO - SELECCIONAR DISCO DONDE SE VA INSTALAR ARCHLINUX
+#DIALOG PARA YES Y NO CASOS
+dialog --no-collapse --cr-wrap --backtitle "$titulo" --title "-| Seleccione la unidad donde desea instalar Archlinux |-" --yesno "\n ¿ Deseas agregar RAM Virtual ?" 7 50
 opcion=0
 while [ $opcion -ne 5 ]; do
 	clear
@@ -18,7 +20,7 @@ while [ $opcion -ne 5 ]; do
 	echo
 	udd="sdx"
 	case $opcion in
-		1) udd="/dev/sda";;
+		1) udd="/dev/sda" ;;
 		2) udd="/dev/sdb" ;;	
 		3) udd="/dev/sdc" ;;	
 		4) udd="/dev/sdd" ;;	
@@ -57,5 +59,8 @@ while [ $opcion -ne 5 ]; do
 done
 echo -n "Pulse ENTER para continuar..."
 read p
-cfdisk udd
+#cfdisk $udd
 # FIN - SELECCIONAR DISCO DONDE SE VA INSTALAR ARCHLINUX
+#DIALOG PARA YES Y NO CASOS
+dialog --no-collapse --cr-wrap --backtitle "$titulo" --title "-| Memoria SWAP |-" --yesno "\n ¿ Deseas agregar RAM Virtual ?" 7 35
+
