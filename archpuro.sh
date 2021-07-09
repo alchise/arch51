@@ -18,11 +18,13 @@
     # 16. Instalación de Gestores de inicio de sesión (D.M.)
 	# 17. Reinicio
 #---------------------------------------------------------------------
+
+clear
+# Instalación de la utilidad dialog para interactuar con el usuario
+pacman -S dialog --noconfirm
+
 # 1. Bienvenida...
 clear
-pacman -Ss dialog
-echo "ENTER PARA CONTINUAR..."
-read p
 result=$(echo "\nGracias por usar el instalador archpuro.\n\nTe ofrezco un método por script para que instales paso a paso tu distro favorita totalmente limpia.")
 dialog 	--title "Archlinux limpio y Puro" \
     	--backtitle "1. Bienvenido al instalador de Archpuro - Por Alchise 2021" \
