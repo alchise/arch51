@@ -20,6 +20,7 @@
 #---------------------------------------------------------------------
 # 1. Bienvenida...
 clear
+pacman -Ss dialog
 result=$(echo "\nGracias por usar el instalador archpuro.\n\nTe ofrezco un método por script para que instales paso a paso tu distro favorita totalmente limpia.")
 dialog 	--title "Archlinux limpio y Puro" \
     	--backtitle "1. Bienvenido al instalador de Archpuro - Por Alchise 2021" \
