@@ -7,7 +7,7 @@
     # 5. Crear particiones de nuestro disco
     # 6. Dar formato a las particiones creadas
     # 7. Montado de particiones
-    # 8. Conexión a internet
+    # 8. 
     # 9. Instalación del sistema base
     # 10. Entrar al sistema base
     # 11. Configuración del sistema base
@@ -19,48 +19,68 @@
 	# 17. Reinicio
 #---------------------------------------------------------------------
 
-clear
-# Instalación de la utilidad dialog para interactuar con el usuario
-pacman -S dialog --noconfirm
+# clear
+# # Instalación de la utilidad dialog para interactuar con el usuario
+# pacman -S dialog --noconfirm
 
-# 1. Bienvenida...
-clear
-result=$(echo "\nGracias por usar el instalador archpuro.\n\nTe ofrezco un método por script para que instales paso a paso tu distro favorita totalmente limpia.")
-dialog 	--title "Archlinux limpio y Puro" \
-    	--backtitle "1. Bienvenido al instalador de Archpuro - Por Alchise 2021" \
-    	--no-collapse \
-        --msgbox "$result" 0 0
+# # 1. Bienvenida...
+# clear
+# result=$(echo "\nGracias por usar el instalador archpuro.\n\nTe ofrezco un método por script para que instales paso a paso tu distro favorita totalmente limpia.")
+# dialog 	--title "Archlinux limpio y Puro" \
+#     	--backtitle "1. Bienvenido al instalador de Archpuro - Por Alchise 2021" \
+#     	--no-collapse \
+#         --msgbox "$result" 0 0
           
-# 2. Verificar arquitectura del procesador...
-clear
-result=$(uname -m)
-if [ "$result" = "x86_64" ];
-then
-        dialog 	--title "La arquitectura de tu procesador ES LA CORRECTA para el instalador:" \
-    	--backtitle "2. Verificando la arquitectura del procesador..." \
-    	--no-collapse \
-    	--msgbox "\n$result" 0 0
-else
-        dialog 	--title "La arquitectura de tu procesador NO ES LA CORRECTA para el instalador:" \
-    	--backtitle "2. Verificando la arquitectura del procesador..." \
-    	--no-collapse \
-    	--msgbox "\n$result" 0 0
-        exit
-fi
+# # 2. Verificar arquitectura del procesador...
+# clear
+# result=$(uname -m)
+# if [ "$result" = "x86_64" ];
+# then
+#         dialog 	--title "La arquitectura de tu procesador ES LA CORRECTA para el instalador:" \
+#     	--backtitle "2. Verificando la arquitectura del procesador..." \
+#     	--no-collapse \
+#     	--msgbox "\n$result" 0 0
+# else
+#         dialog 	--title "La arquitectura de tu procesador NO ES LA CORRECTA para el instalador:" \
+#     	--backtitle "2. Verificando la arquitectura del procesador..." \
+#     	--no-collapse \
+#     	--msgbox "\n$result" 0 0
+#         exit
+# fi
 
-# 3. Configurando la distribución de teclado temporal...
+# # 3. Verificar modo UEFI presente...
+# clear
+# path=$(ls -A '/sys/firmware/efi/efivars') 
+# if [[ ! -z "$path" ]]; 
+# then 
+#         dialog 	--title "¡UEFI PRESENTE!" \
+#     	--backtitle "3. Verificando modo UEFI presente..." \
+#     	--no-collapse \
+#         --msgbox "\nEl directorio '/sys/firmware/efi/efivars'\n¡NO ESTA VACIO, UEFI PRESENTE!" 0 0
+# else 
+#         dialog 	--title "¡UEFI NO PRESENTE!" \
+#     	--backtitle "3. Verificando modo UEFI presente..." \
+#     	--no-collapse \
+#         --msgbox "\nEl directorio '/sys/firmware/efi/efivars'\n¡ESTA VACIO, UEFI NO PRESENTE!" 0 0
+#     	exit
+# fi
+
+# 4. Configuración la distribución de teclado temporal...
 clear
 HEIGHT=30
 WIDTH=50
 CHOICE_HEIGHT=10
-BACKTITLE="Backtitle here"
+BACKTITLE="4. Configuración de la distribución de teclado temporal..."
 TITLE="Title here"
 MENU="Choose one of the following options:"
 
-OPTIONS=(1 "es     - español - españa"
-         2 "latam  - español - latino"
-         3 "us     - inglés  - ????"
-         4 "us     - inglés  - acentos")
+OPTIONS=(   
+        es "Español - españa"
+        la-latin1 "Español - latino"
+        us "Inglés  - americano"
+        us-acentos "Inglés  - acentos"
+        otro "Ingrese manualmente otro teclado..."
+        )
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -70,18 +90,18 @@ CHOICE=$(dialog --clear \
                 "${OPTIONS[@]}" \
                 2>&1 >/dev/tty)
 
-clear
-case $CHOICE in
-        1)
-            echo "You chose Option 1"
-            ;;
-        2)
-            echo "You chose Option 2"
-            ;;
-        3)
-            echo "You chose Option 3"
-            ;;
-esac
+if [ $CHOICE == "otro" ];
+then
+    result=$(localectl list-keymaps)
+   echo $CHOICE
+   OTROTECLADO=$(\dialog --title "Create Directory" \
+                 --inputbox "Enter the directory name:"  8 40 \
+                3>&1 1>&2 2>&3 3>&- \ )
+    echo $OTROTECLADO
+
+else
+    echo "seleccionado $CHOICE"
+fi
 
 # dialog --checklist "Escoge las opciones que desees:" 0 0 0  1 "queso" on 2 "Mostaza" on  3 "anchoas" off
 # dialog --infobox "Espera 4 segundos" 0 0 ; sleep 4
